@@ -30,7 +30,7 @@ resource "oci_identity_policy" "read" {
   }
   compartment_id = var.compartment_id
   name           = "policy_artifacts_container_repository"
-  description    = "allow one or more groups to manage rows and indexes and read tables in nosql."
+  description    = "allow one or more groups to upload container images on OCI Registry"
   statements = [
     "Allow group ${each.value} to manage repos in compartment ${var.compartment} where ALL {request.operation != 'UpdateContainerRepository', request.operation != 'UpdateDockerRepositoryMetadata', request.operation != 'CreateContainerRepository', request.operation != 'CreateDockerRepository', request.operation != 'DeleteContainerRepository'}"
   ]

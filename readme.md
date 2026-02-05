@@ -8,7 +8,7 @@ Module developed to standardize the creation of Oracle artifacts container repos
 
 | Module Version | Terraform Version | OCI Version     |
 |----------------|-------------------| --------------- |
-| v1.0.0         | v1.14.4           | 7.33.0          |
+| v1.0.0         | v1.14.4           | 8.0.0          |
 
 ---
 ## Specifying a version
@@ -56,13 +56,13 @@ terraform {
   required_providers {
     oci = {
       source  = "oracle/oci"
-      version = "7.33.0"
+      version = "8.0.0"
     }
   }
 }
 
 provider "oci" {
-  # if you are deployin on your home region, there is no need to specify the oci provider twice.  
+  # if you are deploying on your home region, there is no need to specify the oci provider twice.  
   alias            = "home"
   tenancy_ocid     = var.tenancy_ocid
   user_ocid        = var.user_ocid
