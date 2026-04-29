@@ -22,16 +22,17 @@ resource "oci_artifacts_container_repository" "container_repository" {
 }
 
 resource "oci_identity_policy" "read" {
-  provider   = oci.home
+  provider   = oci.home  
   depends_on = [oci_artifacts_container_repository.container_repository]
   for_each = {
     for group in var.groups : group => group
-    if var.groups != [] && var.compartment != null
+    if var.groups != [] && var.compartment != null && var.policies == true
   }
   compartment_id = var.compartment_id
-  name           = "policy_artifacts_container_repository"
+  name           = "policy_artifacts_container_repository_${lower(replace(var.compartment, ":", "_"))}"
   description    = "allow one or more groups to upload container images on OCI Registry"
   statements = [
-    "Allow group ${each.value} to manage repos in compartment ${var.compartment} where ALL {request.operation != 'UpdateContainerRepository', request.operation != 'UpdateDockerRepositoryMetadata', request.operation != 'CreateContainerRepository', request.operation != 'CreateDockerRepository', request.operation != 'DeleteContainerRepository'}"
+    for group in var.groups :
+    "Allow group ${group} to manage repos in compartment ${var.compartment} where ALL {request.operation != 'UpdateContainerRepository', request.operation != 'UpdateDockerRepositoryMetadata', request.operation != 'CreateContainerRepository', request.operation != 'CreateDockerRepository', request.operation != 'DeleteContainerRepository'}"
   ]
 }

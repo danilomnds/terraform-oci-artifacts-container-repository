@@ -38,3 +38,17 @@ variable "compartment" {
   type    = string
   default = null
 }
+
+variable "rbac" {
+  type    = bool
+  default = false
+}
+
+variable "tenancy_ocid" {
+  type = string
+}
+
+variable "policies" {
+  type    = bool
+  default = false
+}
